@@ -19,24 +19,26 @@ export default () => {
         
         schema
             .isValid(state)
-            .then(res => {
-               state.valid = res;
-               console.log(state)
-               if(state.valid) {
-                input.classList.remove('is-invalid');
-                notification.classList.remove('text-danger');
-                notification.classList.add('text-success')
-                notification.textContent = 'success';
-                
-            } else {
-                state.valid = res;
-                input.classList.add('is-invalid');
-                notification.classList.remove('text-success');
-                notification.classList.add('text-danger');
-                notification.textContent = 'Invalid Url';
-                
-            }
-        })
+            .then(res => { 
+                state.valid = res
+                if(state.valid) {
+                    input.classList.remove('is-invalid');
+                    notification.classList.remove('text-danger');
+                    notification.classList.add('text-success')
+                    notification.textContent = 'success';
+                    
+                } else {
+                    state.valid = res;
+                    input.classList.add('is-invalid');
+                    notification.classList.remove('text-success');
+                    notification.classList.add('text-danger');
+                    notification.textContent = 'Invalid Url';
+                    
+                }
+            })
+
+
+            
 
     })
 
@@ -53,3 +55,4 @@ export default () => {
 
   
 }
+
