@@ -1,2 +1,4 @@
 node_modules
 .github
+webpack.config.js
+dist
