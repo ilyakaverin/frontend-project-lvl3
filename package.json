@@ -22,18 +22,24 @@
   },
   "homepage": "https://github.com/ilyakaverin/frontend-project-lvl3#readme",
   "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@babel/preset-env": "^7.16.8",
     "@webpack-cli/generators": "^2.4.2",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.6.0",
     "eslint": "^8.8.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "^2.5.1",
+    "style-loader": "^3.3.1",
     "webpack": "^5.68.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.3",
     "workbox-webpack-plugin": "^6.4.2"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.2",
     "bootstrap": "^5.1.3"
   }
 }
