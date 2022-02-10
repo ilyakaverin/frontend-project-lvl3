@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
-import { loading, success, danger, render } from './service';
+import { loading, success, danger, renderItem, renderInfo, h2 } from './service';
 
 
 export default () => {
@@ -11,13 +11,15 @@ export default () => {
     const notification = document.querySelector('.feedback');
     const posts = document.querySelector('.posts');
     const feeds = document.querySelector('.feeds');
+    const headerOne = h2('Посты');
+    const headerTwo = h2('Фиды');
 
     yup.addMethod(yup.string, "alreadyExist", function (errorMessage) {
         return this.test(`test-existing`, errorMessage, function (value) {
           const { path, createError } = this;
       
           return (
-            (!state.website.list.includes(value)) ||
+            (!observer.website.list.includes(value)) ||
             createError({ path, message: errorMessage })
           );
         });
@@ -30,7 +32,10 @@ export default () => {
             list : []
         },
         valid: null,
-        errors: null,
+        status: {
+            success: null,
+            error: null,
+        },
         Loader: {
             isLoading: null
         }
@@ -40,14 +45,16 @@ export default () => {
     const observer = onChange(state, (path, value) => {
 
 
-        if(state.valid === false) {
+        if(value === false) {
             loadObserver.isLoading = false;
-            danger.textContent = state.errors;
+            danger.textContent = errorObserver.error
+            input.classList.add('is-invalid')
             notification.replaceChild(danger, notification.children[0] );
-            state.errors = null
-           
-        } 
-        if(state.valid) {
+        }
+
+       
+
+        if(value) {
             fetch(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(`${state.website.current}`)}`) 
                 .then(response => {
                     if (response.ok) return response.json()
@@ -70,25 +77,31 @@ export default () => {
                         notification.replaceChild(danger, current);
                         
                     } else {
+                       
                         state.website.list.push(state.website.current);
+                        if(state.website.list.length === 1) {
+            
+                            posts.prepend(headerOne);
+                            feeds.prepend(headerTwo)
+                        }
                         input.classList.remove('is-invalid');
+                        const color =  state.website.list.indexOf(state.website.current)
                         notification.replaceChild(success, current);
                         const items = data.querySelectorAll('item');
-                        console.log(data);
                         const title = data.querySelector('title');
                         const desc = data.querySelector('description');
+                       
                         const ul = document.createElement('ul');
-                        posts.append(ul)
-                        feeds.append(title.textContent);
-                        feeds.append(desc.textContent);
+                        ul.classList.add('list-group','border-0', 'rounded-0')
+                        posts.append(ul);
+                        const descNode = renderInfo(title, desc, color)
+                        feeds.append(descNode);
 
                         items.forEach(item => {
-                            const node = render(item);
-                            node.classList.add('border','border-primary')
+                            const node = renderItem(item, color);
                             ul.prepend(node);
                         })
-
-                        items
+                        observer.valid = null
                         input.focus();
                         form.reset();
                       
@@ -98,7 +111,7 @@ export default () => {
                     danger.textContent = 'Check you internet connection, then reload page';
                     notification.replaceChild(danger, notification.children[0])
                 })
-        }
+        } 
         
 
     });
@@ -120,6 +133,14 @@ export default () => {
 
 
     })
+    const errorObserver = onChange(state.status, () => {
+
+        loadObserver.isLoading = false;
+        danger.textContent = errorObserver.error
+        input.classList.add('is-invalid')
+        notification.replaceChild(danger, notification.children[0] );
+
+    })
 
     
 
@@ -129,14 +150,19 @@ export default () => {
         loadObserver.isLoading = true;
         const data = new FormData(e.target);
         const url = data.get('url');
-        observer.website.current = url;
+        state.website.current = url;
         schema
             .validate(state.website)
-            .then(() => {observer.valid = true})
+            .then(() => {
+                observer.valid = true;
+        
+            })
             .catch(e => {
                 observer.valid = false
-               observer.errors = e.message
+                errorObserver.error = e.message;
+           
              })
+            
 
             
         
