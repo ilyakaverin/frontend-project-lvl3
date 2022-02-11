@@ -40,6 +40,3 @@ jobs:
         # Run Linter
         run: |
           make lint
-      - name: Run jest
-        run: |
-          make jest
