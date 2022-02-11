@@ -183,8 +183,8 @@ export default () => {
         errorObserver.error = error.message;
       });
   });
-  const but = document.querySelector('.container-xxl');
-  but.addEventListener('click', (e) => {
+  const showButtons = document.querySelector('.container-xxl');
+  showButtons.addEventListener('click', (e) => {
     const id = e.target.getAttribute('data-id');
     const origin = e.target.getAttribute('data-link');
     const link = e.target.previousElementSibling;

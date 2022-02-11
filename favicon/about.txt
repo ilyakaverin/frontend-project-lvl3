@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Red Hat Mono
+- Font Author: Copyright 2021 The Red Hat Project Authors (https://github.com/RedHatOfficial/RedHatFont)
+- Font Source: http://fonts.gstatic.com/s/redhatmono/v7/jVyY7nDnA2uf2zVvFAhhzEs-VMSjJpBTfgjwQV3I-7HNuW4QuKI.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
