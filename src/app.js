@@ -95,7 +95,7 @@ export default () => {
 
           if (errorNode) {
             input.classList.add('is-invalid');
-            const errorLocale = newInstance.t('invalid');
+            const errorLocale = newInstance.t('errorRSS');
             notification.replaceChild(status(errorLocale, 'text-danger'), current);
             observer.valid = null;
           } else {

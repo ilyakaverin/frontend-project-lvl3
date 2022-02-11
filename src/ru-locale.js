@@ -4,6 +4,7 @@ export default {
     exists: 'RSS уже существует',
     invalid: 'Ссылка должна быть валидным URL',
     Invalid: 'Ссылка должна быть валидным URL',
+    errorRSS: 'Ресурс не содержит валидный RSS',
     check: 'Ошибка сети',
     loading: 'Загрузка',
     button: 'Просмотр',
