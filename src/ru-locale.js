@@ -3,6 +3,7 @@ export default {
     success: 'RSS успешно загружен',
     exists: 'RSS уже существует',
     invalid: 'Ссылка должна быть валидным URL',
+    Invalid: 'Ссылка должна быть валидным URL',
     check: 'Ошибка сети',
     loading: 'Загрузка',
     button: 'Просмотр',

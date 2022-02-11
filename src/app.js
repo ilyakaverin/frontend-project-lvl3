@@ -83,7 +83,7 @@ export default () => {
           const errorLocale = newInstance.t('check');
           notification.replaceChild(status(errorLocale, 'text-danger'), notification.children[0]);
         })
-        .then((data) =>  data.contents)
+        .then((data) => data.contents)
         .then((str) => {
           const parsed = new DOMParser();
           return parsed.parseFromString(str, 'text/xml');
@@ -132,10 +132,8 @@ export default () => {
             form.reset();
           }
         })
-        .catch((e) => {
+        .catch(() => {
           loadObserver.isLoading = false;
-
-          console.log(e)
           const errorLocale = newInstance.t('check');
           notification.replaceChild(status(errorLocale, 'text-danger'), notification.children[0]);
         });
