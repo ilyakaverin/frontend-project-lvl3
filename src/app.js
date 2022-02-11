@@ -160,7 +160,7 @@ export default () => {
     sibling.classList.add('fw-normal', 'link-secondary');
 
     const title = document.querySelector('.modal-title');
-    const desc = document.querySelector('.modal-body > p');
+    const desc = document.querySelector('.modal-body');
     const link = document.querySelector('.modal-footer > a');
     const close = document.querySelector('.modal-footer > button');
     link.textContent = newInstance.t('show');
