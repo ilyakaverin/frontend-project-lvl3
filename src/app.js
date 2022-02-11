@@ -32,6 +32,7 @@ export default () => {
       list: [],
       current_modal: null,
       items: {},
+      fetchStream: false,
     },
     valid: null,
     status: {
@@ -113,6 +114,7 @@ export default () => {
 
             const ul = document.createElement('ul');
             ul.classList.add('list-group', 'border-0', 'rounded-0');
+            ul.setAttribute('data-origin', link);
             posts.append(ul);
             const descNode = renderInfo(title, desc, color);
             feeds.append(descNode);
