@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
 import i18n from 'i18next';
+import fetch from "node-fetch";
 import {
   status, renderItem, renderInfo, h2,
 } from './service';
