@@ -1,7 +1,8 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
 import i18n from 'i18next';
-import fetch from "node-fetch";
+import axios from 'axios';
+
 import {
   status, renderItem, renderInfo, h2,
 } from './service';
@@ -74,15 +75,15 @@ export default () => {
 
   const observer = onChange(state, (path, value) => {
     if (value) {
-      fetch(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(`${state.website.current}`)}`)
+      axios.get(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(`${state.website.current}`)}`)
       // eslint-disable-next-line
         .then((response) => {
-          if (response.ok) return response.json();
+          if (response.status === 200) return response.data;
           loadObserver.isLoading = false;
           const errorLocale = newInstance.t('check');
           notification.replaceChild(status(errorLocale, 'text-danger'), notification.children[0]);
         })
-        .then((data) => data.contents)
+        .then((data) =>  data.contents)
         .then((str) => {
           const parsed = new DOMParser();
           return parsed.parseFromString(str, 'text/xml');
@@ -131,8 +132,10 @@ export default () => {
             form.reset();
           }
         })
-        .catch(() => {
+        .catch((e) => {
           loadObserver.isLoading = false;
+
+          console.log(e)
           const errorLocale = newInstance.t('check');
           notification.replaceChild(status(errorLocale, 'text-danger'), notification.children[0]);
         });
