@@ -20,6 +20,7 @@ newInstance.init({
 export default () => {
   const form = document.querySelector('.rss-form');
   const input = document.querySelector('input');
+  const formButton = document.querySelector('#add');
   const notification = document.querySelector('.feedback');
   const posts = document.querySelector('.posts');
   const feeds = document.querySelector('.feeds');
@@ -70,6 +71,9 @@ export default () => {
       } else {
         notification.replaceChild(status(loadingLocale, 'text-white'), current);
       }
+    } else {
+      input.readOnly = false;
+      formButton.disabled = false;
     }
   });
 
@@ -175,6 +179,8 @@ export default () => {
     const data = new FormData(event.target);
     const url = data.get('url');
     state.website.current = url;
+    input.readOnly = true;
+    formButton.setAttribute('disabled', true);
     schema
       .validate(state.website)
       .then(() => {
