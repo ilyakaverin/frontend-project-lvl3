@@ -150,7 +150,7 @@ export default () => {
             items.forEach((item, index) => {
               const buttonText = newInstance.t('button');
               const node = renderItem(item, color, buttonText, index, link);
-              ul.prepend(node);
+              ul.append(node);
             });
             const buttons = document.querySelectorAll('[data-bs-target="#modal"');
 
