@@ -77,6 +77,28 @@ export default () => {
     }
   });
 
+  const modalObserver = onChange(state.website, (path, value) => {
+    const id = value[0];
+    const origin = value[1];
+    const sibling = value[2];
+
+    sibling.classList.remove('fw-bold');
+    sibling.classList.add('fw-normal', 'link-secondary');
+
+    const title = document.querySelector('.modal-title');
+    const desc = document.querySelector('.modal-body');
+    const link = document.querySelector('.modal-footer > a');
+    const close = document.querySelector('.modal-footer > button');
+    link.textContent = newInstance.t('show');
+    close.textContent = newInstance.t('close');
+    const currentTitle = state.website.items[origin][id].querySelector('title').textContent;
+    const currentDesc = state.website.items[origin][id].querySelector('description').textContent;
+    const currentHref = state.website.items[origin][id].querySelector('link').textContent;
+    title.textContent = currentTitle;
+    desc.textContent = currentDesc;
+    link.href = currentHref;
+  });
+
   const observer = onChange(state, (path, value) => {
     if (value) {
       axios.get(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(`${state.website.current}`)}`)
@@ -130,6 +152,16 @@ export default () => {
               const node = renderItem(item, color, buttonText, index, link);
               ul.prepend(node);
             });
+            const buttons = document.querySelectorAll('[data-bs-target="#modal"');
+
+            buttons.forEach((button) => {
+              button.addEventListener('click', (e) => {
+                const id = e.target.getAttribute('data-id');
+                const origin = e.target.getAttribute('data-link');
+                const href = e.target.previousElementSibling;
+                modalObserver.current_modal = [id, origin, href];
+              });
+            });
 
             observer.valid = null;
             input.focus();
@@ -151,27 +183,6 @@ export default () => {
     notification.replaceChild(status(errorLocale, 'text-danger'), notification.children[0]);
     state.status.error = '';
   });
-  const modalObserver = onChange(state.website, (path, value) => {
-    const id = value[0];
-    const origin = value[1];
-    const sibling = value[2];
-
-    sibling.classList.remove('fw-bold');
-    sibling.classList.add('fw-normal', 'link-secondary');
-
-    const title = document.querySelector('.modal-title');
-    const desc = document.querySelector('.modal-body');
-    const link = document.querySelector('.modal-footer > a');
-    const close = document.querySelector('.modal-footer > button');
-    link.textContent = newInstance.t('show');
-    close.textContent = newInstance.t('close');
-    const currentTitle = state.website.items[origin][id].querySelector('title').textContent;
-    const currentDesc = state.website.items[origin][id].querySelector('description').textContent;
-    const currentHref = state.website.items[origin][id].querySelector('link').textContent;
-    title.textContent = currentTitle;
-    desc.textContent = currentDesc;
-    link.href = currentHref;
-  });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -190,12 +201,5 @@ export default () => {
         observer.valid = false;
         errorObserver.error = error.message;
       });
-  });
-  const showButtons = document.querySelector('.container-xxl');
-  showButtons.addEventListener('click', (e) => {
-    const id = e.target.getAttribute('data-id');
-    const origin = e.target.getAttribute('data-link');
-    const link = e.target.previousElementSibling;
-    modalObserver.current_modal = [id, origin, link];
   });
 };
