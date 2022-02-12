@@ -4,7 +4,7 @@ import i18n from 'i18next';
 import axios from 'axios';
 
 import {
-  status, renderItem, renderInfo, h2,
+  status, buildItem, buildInfo, h2,
 } from './service';
 import ru from './ru-locale';
 
@@ -144,13 +144,13 @@ export default () => {
             ul.classList.add('list-group', 'border-0', 'rounded-0');
             ul.setAttribute('data-origin', link);
             posts.append(ul);
-            const viewDescription = renderInfo(title, desc, color);
-            feeds.append(viewDescription);
+            const description = buildInfo(title, desc, color);
+            feeds.append(description);
 
             items.forEach((item, index) => {
               const buttonText = newInstance.t('button');
-              const viewPost = renderItem(item, color, buttonText, index, link);
-              ul.append(viewPost);
+              const post = buildItem(item, color, buttonText, index, link);
+              ul.append(post);
             });
             const buttons = document.querySelectorAll('[data-bs-target="#modal"');
 

@@ -13,7 +13,7 @@ export const status = (text, textStatus) => {
   return span;
 };
 
-export const renderItem = (item, color, buttonText, buttonIndex, origin) => {
+export const buildItem = (item, color, buttonText, buttonIndex, origin) => {
   const button = document.createElement('button');
   const li = document.createElement('li');
   li.classList.add('list-group-item', 'd-flex', 'border', map[color]);
@@ -38,7 +38,7 @@ export const renderItem = (item, color, buttonText, buttonIndex, origin) => {
 
   return li;
 };
-export const renderInfo = (item, item2, color) => {
+export const buildInfo = (item, item2, color) => {
   const card = document.createElement('div');
   card.classList.add('card', 'border', map[color]);
   const body = document.createElement('div');
