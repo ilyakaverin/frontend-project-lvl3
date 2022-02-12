@@ -144,13 +144,13 @@ export default () => {
             ul.classList.add('list-group', 'border-0', 'rounded-0');
             ul.setAttribute('data-origin', link);
             posts.append(ul);
-            const description = renderInfo(title, desc, color);
-            feeds.append(description);
+            const viewDescription = renderInfo(title, desc, color);
+            feeds.append(viewDescription);
 
             items.forEach((item, index) => {
               const buttonText = newInstance.t('button');
-              const post = renderItem(item, color, buttonText, index, link);
-              ul.append(post);
+              const viewPost = renderItem(item, color, buttonText, index, link);
+              ul.append(viewPost);
             });
             const buttons = document.querySelectorAll('[data-bs-target="#modal"');
 
