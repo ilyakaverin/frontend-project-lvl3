@@ -14,8 +14,10 @@ export const status = (text, textStatus) => {
 };
 
 export const renderItem = (item, color, buttonText, buttonIndex, origin) => {
-  const card = document.createElement('div');
   const button = document.createElement('button');
+  const li = document.createElement('li');
+  li.classList.add('list-group-item', 'd-flex', 'border', map[color]);
+  li.classList.add('align-items-start', 'justify-content-between');
   button.setAttribute('type', 'button');
   button.textContent = buttonText;
   button.classList.add('btn', 'btn-outline-primary', 'btn-sm', map[color]);
@@ -23,21 +25,18 @@ export const renderItem = (item, color, buttonText, buttonIndex, origin) => {
   button.setAttribute('data-bs-target', '#modal');
   button.setAttribute('data-bs-toggle', 'modal');
   button.setAttribute('data-link', origin);
-  card.classList.add('card', 'border', map[color]);
-  const body = document.createElement('div');
-  body.classList.add('card-body', 'd-flex', 'justify-content-between');
   const text = item.querySelector('title');
   const href = item.querySelector('link');
   const link = document.createElement('a');
   link.classList.add('fw-bold');
+  link.setAttribute('rel', 'noopener noreferrer');
   link.href = href.textContent;
   link.textContent = text.textContent;
   link.setAttribute('target', '_blank');
-  body.append(link);
-  body.append(button);
-  card.append(body);
+  li.append(link);
+  li.append(button);
 
-  return card;
+  return li;
 };
 export const renderInfo = (item, item2, color) => {
   const card = document.createElement('div');
