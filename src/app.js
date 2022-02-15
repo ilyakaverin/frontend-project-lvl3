@@ -35,7 +35,6 @@ export default () => {
       list: [],
       current_modal: null,
       items: {},
-      fetchStream: false,
     },
     valid: null,
     status: {
