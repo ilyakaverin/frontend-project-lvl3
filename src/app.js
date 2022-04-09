@@ -100,7 +100,7 @@ export default () => {
 
   const observer = onChange(state, (path, value) => {
     if (value) {
-      axios.get(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(`${state.website.current}`)}`)
+      axios.get(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(`${state.website.current}`)}`)
       // eslint-disable-next-line
         .then((response) => {
           if (response.status === 200) return response.data;
